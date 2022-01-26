@@ -1,8 +1,8 @@
 package org.nlpcn.es4sql.parse;
 
-import com.alibaba.druid.sql.ast.SQLExpr;
-import com.alibaba.druid.sql.ast.expr.SQLCaseExpr;
-import com.alibaba.druid.sql.ast.expr.SQLNullExpr;
+import v10.com.alibaba.druid.sql.ast.SQLExpr;
+import v10.com.alibaba.druid.sql.ast.expr.SQLCaseExpr;
+import v10.com.alibaba.druid.sql.ast.expr.SQLNullExpr;
 import com.google.common.base.Joiner;
 import org.elasticsearch.common.inject.internal.Join;
 import org.nlpcn.es4sql.SQLFunctions;

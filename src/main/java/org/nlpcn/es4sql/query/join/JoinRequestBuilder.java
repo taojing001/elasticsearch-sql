@@ -1,6 +1,6 @@
 package org.nlpcn.es4sql.query.join;
 
-import com.alibaba.druid.sql.ast.statement.SQLJoinTableSource;
+import v10.com.alibaba.druid.sql.ast.statement.SQLJoinTableSource;
 import org.elasticsearch.action.ActionRequest;
 import org.elasticsearch.action.ActionRequestBuilder;
 import org.elasticsearch.action.ActionResponse;

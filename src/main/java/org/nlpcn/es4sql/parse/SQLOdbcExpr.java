@@ -1,7 +1,7 @@
 package org.nlpcn.es4sql.parse;
 
-import com.alibaba.druid.sql.ast.expr.SQLCharExpr;
-import com.alibaba.druid.sql.visitor.SQLASTVisitor;
+import v10.com.alibaba.druid.sql.ast.expr.SQLCharExpr;
+import v10.com.alibaba.druid.sql.visitor.SQLASTVisitor;
 
 
 /**

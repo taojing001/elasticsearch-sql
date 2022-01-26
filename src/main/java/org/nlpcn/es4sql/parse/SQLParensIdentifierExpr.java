@@ -1,6 +1,6 @@
 package org.nlpcn.es4sql.parse;
 
-import com.alibaba.druid.sql.ast.expr.SQLIdentifierExpr;
+import v10.com.alibaba.druid.sql.ast.expr.SQLIdentifierExpr;
 
 
 /*

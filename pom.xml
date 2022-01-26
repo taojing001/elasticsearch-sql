@@ -76,8 +76,10 @@
 
 		<dependency>
 			<groupId>com.alibaba</groupId>
-			<artifactId>druid</artifactId>
+			<artifactId>druid10</artifactId>
 			<version>1.0.15</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/jar/druid10-1.0.15.jar</systemPath>
 		</dependency>
 
 		<dependency>

@@ -1,19 +1,19 @@
 package org.nlpcn.es4sql.parse;
 
-import com.alibaba.druid.sql.ast.SQLExpr;
-import com.alibaba.druid.sql.ast.SQLSetQuantifier;
-import com.alibaba.druid.sql.ast.expr.SQLIdentifierExpr;
-import com.alibaba.druid.sql.ast.expr.SQLLiteralExpr;
-import com.alibaba.druid.sql.ast.statement.*;
-import com.alibaba.druid.sql.dialect.mysql.ast.*;
-import com.alibaba.druid.sql.dialect.mysql.ast.expr.MySqlOutFileExpr;
-import com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlSelectGroupBy;
-import com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlSelectQueryBlock;
-import com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlUnionQuery;
-import com.alibaba.druid.sql.parser.ParserException;
-import com.alibaba.druid.sql.parser.SQLExprParser;
-import com.alibaba.druid.sql.parser.SQLSelectParser;
-import com.alibaba.druid.sql.parser.Token;
+import v10.com.alibaba.druid.sql.ast.SQLExpr;
+import v10.com.alibaba.druid.sql.ast.SQLSetQuantifier;
+import v10.com.alibaba.druid.sql.ast.expr.SQLIdentifierExpr;
+import v10.com.alibaba.druid.sql.ast.expr.SQLLiteralExpr;
+import v10.com.alibaba.druid.sql.ast.statement.*;
+import v10.com.alibaba.druid.sql.dialect.mysql.ast.*;
+import v10.com.alibaba.druid.sql.dialect.mysql.ast.expr.MySqlOutFileExpr;
+import v10.com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlSelectGroupBy;
+import v10.com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlSelectQueryBlock;
+import v10.com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlUnionQuery;
+import v10.com.alibaba.druid.sql.parser.ParserException;
+import v10.com.alibaba.druid.sql.parser.SQLExprParser;
+import v10.com.alibaba.druid.sql.parser.SQLSelectParser;
+import v10.com.alibaba.druid.sql.parser.Token;
 
 /**
  * Created by allwefantasy on 8/19/16.

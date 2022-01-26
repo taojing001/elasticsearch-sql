@@ -5,10 +5,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import com.alibaba.druid.sql.ast.expr.*;
-import com.alibaba.druid.sql.ast.statement.SQLJoinTableSource;
-import com.alibaba.druid.sql.ast.statement.SQLSelectQueryBlock;
-import com.alibaba.druid.sql.parser.SQLParseException;
+import v10.com.alibaba.druid.sql.ast.expr.*;
+import v10.com.alibaba.druid.sql.ast.statement.SQLJoinTableSource;
+import v10.com.alibaba.druid.sql.ast.statement.SQLSelectQueryBlock;
+import v10.com.alibaba.druid.sql.parser.SQLParseException;
 import com.google.common.collect.Lists;
 import org.elasticsearch.common.collect.Tuple;
 import org.nlpcn.es4sql.SQLFunctions;
@@ -18,7 +18,7 @@ import org.nlpcn.es4sql.domain.KVValue;
 import org.nlpcn.es4sql.domain.MethodField;
 import org.nlpcn.es4sql.domain.Where;
 import org.nlpcn.es4sql.exception.SqlParseException;
-import com.alibaba.druid.sql.ast.*;
+import v10.com.alibaba.druid.sql.ast.*;
 import org.nlpcn.es4sql.query.maker.AggMaker;
 
 /**

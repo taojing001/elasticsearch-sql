@@ -1,4 +1,7 @@
-package com.alibaba.druid.pool;
+package v10.com.alibaba.druid.pool;
+
+import v10.com.alibaba.druid.pool.DruidDataSource;
+import v10.com.alibaba.druid.pool.DruidDataSourceFactory;
 
 import javax.sql.DataSource;
 import java.util.Map;

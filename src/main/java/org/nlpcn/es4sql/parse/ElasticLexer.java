@@ -1,12 +1,12 @@
 package org.nlpcn.es4sql.parse;
 
-import com.alibaba.druid.sql.dialect.mysql.parser.MySqlLexer;
-import com.alibaba.druid.sql.parser.ParserException;
-import com.alibaba.druid.sql.parser.Token;
+import v10.com.alibaba.druid.sql.dialect.mysql.parser.MySqlLexer;
+import v10.com.alibaba.druid.sql.parser.ParserException;
+import v10.com.alibaba.druid.sql.parser.Token;
 
-import static com.alibaba.druid.sql.parser.CharTypes.isFirstIdentifierChar;
-import static com.alibaba.druid.sql.parser.CharTypes.isIdentifierChar;
-import static com.alibaba.druid.sql.parser.LayoutCharacters.EOI;
+import static v10.com.alibaba.druid.sql.parser.CharTypes.isFirstIdentifierChar;
+import static v10.com.alibaba.druid.sql.parser.CharTypes.isIdentifierChar;
+import static v10.com.alibaba.druid.sql.parser.LayoutCharacters.EOI;
 
 /**
  * Created by Eliran on 18/8/2015.

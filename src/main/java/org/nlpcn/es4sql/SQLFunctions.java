@@ -1,7 +1,7 @@
 package org.nlpcn.es4sql;
 
-import com.alibaba.druid.sql.ast.SQLExpr;
-import com.alibaba.druid.sql.ast.expr.*;
+import v10.com.alibaba.druid.sql.ast.SQLExpr;
+import v10.com.alibaba.druid.sql.ast.expr.*;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;

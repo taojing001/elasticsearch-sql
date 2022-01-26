@@ -1,9 +1,9 @@
 package org.nlpcn.es4sql;
 
 
-import com.alibaba.druid.pool.DruidDataSource;
+import v10.com.alibaba.druid.pool.DruidDataSource;
 
-import com.alibaba.druid.pool.ElasticSearchDruidDataSourceFactory;
+import v10.com.alibaba.druid.pool.ElasticSearchDruidDataSourceFactory;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -2,10 +2,10 @@ package org.nlpcn.es4sql.domain;
 
 import java.util.List;
 
-import com.alibaba.druid.sql.ast.SQLExpr;
-import com.alibaba.druid.sql.ast.expr.SQLCharExpr;
-import com.alibaba.druid.sql.ast.expr.SQLMethodInvokeExpr;
-import com.alibaba.druid.sql.ast.expr.SQLNumericLiteralExpr;
+import v10.com.alibaba.druid.sql.ast.SQLExpr;
+import v10.com.alibaba.druid.sql.ast.expr.SQLCharExpr;
+import v10.com.alibaba.druid.sql.ast.expr.SQLMethodInvokeExpr;
+import v10.com.alibaba.druid.sql.ast.expr.SQLNumericLiteralExpr;
 import org.elasticsearch.common.xcontent.ToXContent;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.QueryStringQueryBuilder;

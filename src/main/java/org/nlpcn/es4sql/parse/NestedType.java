@@ -1,10 +1,10 @@
 package org.nlpcn.es4sql.parse;
 
-import com.alibaba.druid.sql.ast.SQLExpr;
-import com.alibaba.druid.sql.ast.expr.SQLIdentifierExpr;
-import com.alibaba.druid.sql.ast.expr.SQLMethodInvokeExpr;
-import com.alibaba.druid.sql.ast.expr.SQLPropertyExpr;
-import com.alibaba.druid.sql.ast.expr.SQLTextLiteralExpr;
+import v10.com.alibaba.druid.sql.ast.SQLExpr;
+import v10.com.alibaba.druid.sql.ast.expr.SQLIdentifierExpr;
+import v10.com.alibaba.druid.sql.ast.expr.SQLMethodInvokeExpr;
+import v10.com.alibaba.druid.sql.ast.expr.SQLPropertyExpr;
+import v10.com.alibaba.druid.sql.ast.expr.SQLTextLiteralExpr;
 import org.nlpcn.es4sql.Util;
 import org.nlpcn.es4sql.domain.Where;
 import org.nlpcn.es4sql.exception.SqlParseException;

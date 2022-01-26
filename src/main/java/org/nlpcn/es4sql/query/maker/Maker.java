@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.alibaba.druid.sql.ast.SQLExpr;
-import com.alibaba.druid.sql.ast.expr.SQLIdentifierExpr;
-import com.alibaba.druid.sql.ast.expr.SQLMethodInvokeExpr;
+import v10.com.alibaba.druid.sql.ast.SQLExpr;
+import v10.com.alibaba.druid.sql.ast.expr.SQLIdentifierExpr;
+import v10.com.alibaba.druid.sql.ast.expr.SQLMethodInvokeExpr;
 import com.google.common.collect.ImmutableSet;
 import org.elasticsearch.common.geo.ShapeRelation;
 import org.elasticsearch.common.geo.builders.ShapeBuilder;
@@ -44,7 +44,7 @@ public abstract class Maker {
 
 	/**
 	 * 构建过滤条件
-	 * 
+	 *
 	 * @param cond
 	 * @return
 	 * @throws SqlParseException

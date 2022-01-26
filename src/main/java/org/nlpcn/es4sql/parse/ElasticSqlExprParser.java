@@ -1,17 +1,17 @@
 package org.nlpcn.es4sql.parse;
 
-import com.alibaba.druid.sql.ast.*;
-import com.alibaba.druid.sql.ast.expr.*;
-import com.alibaba.druid.sql.ast.statement.SQLAssignItem;
-import com.alibaba.druid.sql.ast.statement.SQLColumnDefinition;
-import com.alibaba.druid.sql.dialect.mysql.ast.MySqlPrimaryKey;
-import com.alibaba.druid.sql.dialect.mysql.ast.MySqlUnique;
-import com.alibaba.druid.sql.dialect.mysql.ast.MysqlForeignKey;
-import com.alibaba.druid.sql.dialect.mysql.ast.expr.*;
-import com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlSQLColumnDefinition;
-import com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlSelectQueryBlock;
-import com.alibaba.druid.sql.parser.*;
-import com.alibaba.druid.util.JdbcConstants;
+import v10.com.alibaba.druid.sql.ast.*;
+import v10.com.alibaba.druid.sql.ast.expr.*;
+import v10.com.alibaba.druid.sql.ast.statement.SQLAssignItem;
+import v10.com.alibaba.druid.sql.ast.statement.SQLColumnDefinition;
+import v10.com.alibaba.druid.sql.dialect.mysql.ast.MySqlPrimaryKey;
+import v10.com.alibaba.druid.sql.dialect.mysql.ast.MySqlUnique;
+import v10.com.alibaba.druid.sql.dialect.mysql.ast.MysqlForeignKey;
+import v10.com.alibaba.druid.sql.dialect.mysql.ast.expr.*;
+import v10.com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlSQLColumnDefinition;
+import v10.com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlSelectQueryBlock;
+import v10.com.alibaba.druid.sql.parser.*;
+import v10.com.alibaba.druid.util.JdbcConstants;
 
 import java.util.List;
 

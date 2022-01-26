@@ -5,17 +5,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import com.alibaba.druid.sql.ast.expr.*;
-import com.alibaba.druid.sql.ast.statement.SQLJoinTableSource;
-import com.alibaba.druid.sql.ast.statement.SQLSelectQueryBlock;
-import com.alibaba.druid.sql.ast.statement.SQLTableSource;
-import com.alibaba.druid.sql.ast.statement.SQLUnionQuery;
+import v10.com.alibaba.druid.sql.ast.expr.*;
+import v10.com.alibaba.druid.sql.ast.statement.SQLJoinTableSource;
+import v10.com.alibaba.druid.sql.ast.statement.SQLSelectQueryBlock;
+import v10.com.alibaba.druid.sql.ast.statement.SQLTableSource;
+import v10.com.alibaba.druid.sql.ast.statement.SQLUnionQuery;
 import org.nlpcn.es4sql.domain.Field;
 import org.nlpcn.es4sql.domain.KVValue;
 import org.nlpcn.es4sql.exception.SqlParseException;
 
-import com.alibaba.druid.sql.ast.*;
+import v10.com.alibaba.druid.sql.ast.*;
 
 
 public class Util {

@@ -1,14 +1,13 @@
 package org.nlpcn.es4sql.query;
 
-
-import com.alibaba.druid.sql.ast.SQLExpr;
-import com.alibaba.druid.sql.ast.expr.SQLQueryExpr;
-import com.alibaba.druid.sql.ast.statement.SQLDeleteStatement;
-import com.alibaba.druid.sql.ast.statement.SQLJoinTableSource;
-import com.alibaba.druid.sql.ast.statement.SQLUnionQuery;
-import com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlSelectQueryBlock;
-import com.alibaba.druid.sql.dialect.mysql.parser.MySqlStatementParser;
-import com.alibaba.druid.sql.parser.*;
+import v10.com.alibaba.druid.sql.ast.statement.SQLUnionQuery;
+import v10.com.alibaba.druid.sql.ast.SQLExpr;
+import v10.com.alibaba.druid.sql.ast.expr.SQLQueryExpr;
+import v10.com.alibaba.druid.sql.ast.statement.SQLDeleteStatement;
+import v10.com.alibaba.druid.sql.ast.statement.SQLJoinTableSource;
+import v10.com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlSelectQueryBlock;
+import v10.com.alibaba.druid.sql.dialect.mysql.parser.MySqlStatementParser;
+import v10.com.alibaba.druid.sql.parser.*;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.plugin.nlpcn.ElasticResultHandler;
 import org.elasticsearch.plugin.nlpcn.QueryActionElasticExecutor;

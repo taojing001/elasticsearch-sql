@@ -1,10 +1,9 @@
 package org.nlpcn.es4sql;
 
-import com.alibaba.druid.sql.ast.SQLExpr;
-import com.alibaba.druid.sql.ast.expr.SQLIntegerExpr;
-import com.alibaba.druid.sql.ast.expr.SQLPropertyExpr;
-import com.alibaba.druid.sql.ast.expr.SQLQueryExpr;
-import com.alibaba.druid.sql.ast.statement.SQLUnionOperator;
+import v10.com.alibaba.druid.sql.ast.SQLExpr;
+import v10.com.alibaba.druid.sql.ast.expr.SQLIntegerExpr;
+import v10.com.alibaba.druid.sql.ast.expr.SQLPropertyExpr;
+import v10.com.alibaba.druid.sql.ast.expr.SQLQueryExpr;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.junit.Assert;
 import org.junit.BeforeClass;

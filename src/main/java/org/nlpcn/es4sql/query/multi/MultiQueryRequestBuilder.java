@@ -1,6 +1,6 @@
 package org.nlpcn.es4sql.query.multi;
 
-import com.alibaba.druid.sql.ast.statement.SQLUnionOperator;
+import v10.com.alibaba.druid.sql.ast.statement.SQLUnionOperator;
 import org.elasticsearch.action.ActionRequest;
 import org.elasticsearch.action.ActionRequestBuilder;
 import org.elasticsearch.action.ActionResponse;

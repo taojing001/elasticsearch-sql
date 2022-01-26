@@ -1,7 +1,7 @@
 package org.nlpcn.es4sql.jdbc;
 
-import com.alibaba.druid.pool.DruidDataSource;
-import com.alibaba.druid.pool.ElasticSearchDruidDataSourceFactory;
+import v10.com.alibaba.druid.pool.DruidDataSource;
+import v10.com.alibaba.druid.pool.ElasticSearchDruidDataSourceFactory;
 
 import java.sql.*;
 import java.util.Properties;

@@ -1,6 +1,6 @@
 package org.elasticsearch.plugin.nlpcn;
 
-import com.alibaba.druid.sql.ast.statement.SQLJoinTableSource;
+import v10.com.alibaba.druid.sql.ast.statement.SQLJoinTableSource;
 import org.elasticsearch.action.search.*;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.common.text.Text;

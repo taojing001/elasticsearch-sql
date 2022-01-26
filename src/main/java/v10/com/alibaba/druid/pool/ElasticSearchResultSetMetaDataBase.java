@@ -1,6 +1,7 @@
-package com.alibaba.druid.pool;
+package v10.com.alibaba.druid.pool;
 
-import com.alibaba.druid.util.jdbc.ResultSetMetaDataBase;
+import v10.com.alibaba.druid.util.jdbc.ResultSetBase;
+import v10.com.alibaba.druid.util.jdbc.ResultSetMetaDataBase;
 
 import java.util.List;
 
