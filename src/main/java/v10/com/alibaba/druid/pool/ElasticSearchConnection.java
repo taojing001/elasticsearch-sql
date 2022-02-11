@@ -28,7 +28,7 @@ public class ElasticSearchConnection implements Connection {
 
     @Override
     public Statement createStatement() throws SQLException {
-        return null;
+        return new ElasticSearchStatement(this, client);
     }
 
     @Override

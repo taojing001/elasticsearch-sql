@@ -3,6 +3,7 @@ package org.nlpcn.es4sql;
 import v10.com.alibaba.druid.sql.ast.SQLExpr;
 import v10.com.alibaba.druid.sql.ast.expr.SQLIntegerExpr;
 import v10.com.alibaba.druid.sql.ast.expr.SQLPropertyExpr;
+import v10.com.alibaba.druid.sql.ast.statement.SQLUnionOperator;
 import v10.com.alibaba.druid.sql.ast.expr.SQLQueryExpr;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.junit.Assert;
@@ -989,7 +990,7 @@ public class SqlParserTests {
     @Test
     public void multiSelectMinusOperationCheckIndices() throws SqlParseException {
         String query = "select pk from firstIndex minus  select pk from secondIndex ";
-        MultiQuerySelect select = parser.parseMultiSelect((com.alibaba.druid.sql.ast.statement.SQLUnionQuery) ((SQLQueryExpr) queryToExpr(query)).getSubQuery().getQuery());
+        MultiQuerySelect select = parser.parseMultiSelect((v10.com.alibaba.druid.sql.ast.statement.SQLUnionQuery) ((SQLQueryExpr) queryToExpr(query)).getSubQuery().getQuery());
         Assert.assertEquals("firstIndex",select.getFirstSelect().getFrom().get(0).getIndex());
         Assert.assertEquals("secondIndex",select.getSecondSelect().getFrom().get(0).getIndex());
         Assert.assertEquals(SQLUnionOperator.MINUS,select.getOperation());
@@ -998,7 +999,7 @@ public class SqlParserTests {
     @Test
     public void multiSelectMinusWithAliasCheckAliases() throws SqlParseException {
         String query = "select pk as myId from firstIndex minus  select myId from secondIndex ";
-        MultiQuerySelect select = parser.parseMultiSelect((com.alibaba.druid.sql.ast.statement.SQLUnionQuery) ((SQLQueryExpr) queryToExpr(query)).getSubQuery().getQuery());
+        MultiQuerySelect select = parser.parseMultiSelect((v10.com.alibaba.druid.sql.ast.statement.SQLUnionQuery) ((SQLQueryExpr) queryToExpr(query)).getSubQuery().getQuery());
         Assert.assertEquals("myId",select.getFirstSelect().getFields().get(0).getAlias());
         Assert.assertEquals("myId",select.getSecondSelect().getFields().get(0).getName());
         Assert.assertEquals(SQLUnionOperator.MINUS,select.getOperation());
@@ -1006,7 +1007,7 @@ public class SqlParserTests {
     @Test
     public void multiSelectMinusTestMinusHints() throws SqlParseException {
         String query = "select /*! MINUS_SCROLL_FETCH_AND_RESULT_LIMITS(1000,50,100)*/ /*! MINUS_USE_TERMS_OPTIMIZATION(true)*/ pk from firstIndex minus  select pk from secondIndex ";
-        MultiQuerySelect select = parser.parseMultiSelect((com.alibaba.druid.sql.ast.statement.SQLUnionQuery) ((SQLQueryExpr) queryToExpr(query)).getSubQuery().getQuery());
+        MultiQuerySelect select = parser.parseMultiSelect((v10.com.alibaba.druid.sql.ast.statement.SQLUnionQuery) ((SQLQueryExpr) queryToExpr(query)).getSubQuery().getQuery());
         List<Hint> hints = select.getFirstSelect().getHints();
         Assert.assertEquals(2,hints.size());
         for(Hint hint : hints) {
@@ -1025,7 +1026,7 @@ public class SqlParserTests {
     @Test
     public void multiSelectMinusScrollCheckDefaultsAllDefaults() throws SqlParseException {
         String query = "select /*! MINUS_SCROLL_FETCH_AND_RESULT_LIMITS*/ pk from firstIndex minus  select pk from secondIndex ";
-        MultiQuerySelect select = parser.parseMultiSelect((com.alibaba.druid.sql.ast.statement.SQLUnionQuery) ((SQLQueryExpr) queryToExpr(query)).getSubQuery().getQuery());
+        MultiQuerySelect select = parser.parseMultiSelect((v10.com.alibaba.druid.sql.ast.statement.SQLUnionQuery) ((SQLQueryExpr) queryToExpr(query)).getSubQuery().getQuery());
         List<Hint> hints = select.getFirstSelect().getHints();
         Assert.assertEquals(1, hints.size());
         Hint hint = hints.get(0);
@@ -1039,7 +1040,7 @@ public class SqlParserTests {
     @Test
     public void multiSelectMinusScrollCheckDefaultsOneDefault() throws SqlParseException {
         String query = "select /*! MINUS_SCROLL_FETCH_AND_RESULT_LIMITS(50,100)*/ pk from firstIndex minus  select pk from secondIndex ";
-        MultiQuerySelect select = parser.parseMultiSelect((com.alibaba.druid.sql.ast.statement.SQLUnionQuery) ((SQLQueryExpr) queryToExpr(query)).getSubQuery().getQuery());
+        MultiQuerySelect select = parser.parseMultiSelect((v10.com.alibaba.druid.sql.ast.statement.SQLUnionQuery) ((SQLQueryExpr) queryToExpr(query)).getSubQuery().getQuery());
         List<Hint> hints = select.getFirstSelect().getHints();
         Assert.assertEquals(1, hints.size());
         Hint hint = hints.get(0);

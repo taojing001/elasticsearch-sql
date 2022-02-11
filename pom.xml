@@ -187,13 +187,13 @@
 						</goals>
 						<configuration>
 							<artifactItems>
-								<artifactItem>
+<!--								<artifactItem>
 									<groupId>com.alibaba</groupId>
 									<artifactId>druid</artifactId>
 									<overWrite>false</overWrite>
 									<outputDirectory>${project.build.directory}</outputDirectory>
 									<destFileName>druid.jar</destFileName>
-								</artifactItem>
+								</artifactItem>-->
 								<artifactItem>
 									<groupId>org.elasticsearch.plugin</groupId>
 									<artifactId>delete-by-query</artifactId>
