@@ -46,7 +46,7 @@ public class ObjectResultsExtractor {
             List<List<Object>> lines = new ArrayList<>();
             lines.add(new ArrayList<Object>());
             handleAggregations((Aggregations) queryResult, headers, lines);
-            
+
             // remove empty line。
             if(lines.get(0).size() == 0) {
                 lines.remove(0);
@@ -154,7 +154,7 @@ public class ObjectResultsExtractor {
             if (!header.contains(name)) {
                 header.add(name);
             }
-            line.add(((NumericMetricsAggregation.SingleValue) aggregation).value());
+            line.add(dealInfiniteAndNaN(((NumericMetricsAggregation.SingleValue) aggregation).value()));
         }
         //todo:Numeric MultiValue - Stats,ExtendedStats,Percentile...
         else if (aggregation instanceof NumericMetricsAggregation.MultiValue) {
@@ -168,27 +168,27 @@ public class ObjectResultsExtractor {
                 mergeHeadersWithPrefix(header, name, statsHeaders);
                 Stats stats = (Stats) aggregation;
                 line.add(stats.getCount());
-                line.add(stats.getSum());
-                line.add(stats.getAvg());
-                line.add(stats.getMin());
-                line.add(stats.getMax());
+                line.add(dealInfiniteAndNaN(stats.getSum()));
+                line.add(dealInfiniteAndNaN(stats.getAvg()));
+                line.add(dealInfiniteAndNaN(stats.getMin()));
+                line.add(dealInfiniteAndNaN(stats.getMax()));
                 if (isExtendedStats) {
                     ExtendedStats extendedStats = (ExtendedStats) aggregation;
-                    line.add(extendedStats.getSumOfSquares());
-                    line.add(extendedStats.getVariance());
-                    line.add(extendedStats.getStdDeviation());
+                    line.add(dealInfiniteAndNaN(extendedStats.getSumOfSquares()));
+                    line.add(dealInfiniteAndNaN(extendedStats.getVariance()));
+                    line.add(dealInfiniteAndNaN(extendedStats.getStdDeviation()));
                 }
             } else if (aggregation instanceof Percentiles) {
                 String[] percentileHeaders = new String[]{"1.0", "5.0", "25.0", "50.0", "75.0", "95.0", "99.0"};
                 mergeHeadersWithPrefix(header, name, percentileHeaders);
                 Percentiles percentiles = (Percentiles) aggregation;
-                line.add(percentiles.percentile(1.0));
-                line.add(percentiles.percentile(5.0));
-                line.add(percentiles.percentile(25.0));
-                line.add(percentiles.percentile(50.0));
-                line.add(percentiles.percentile(75));
-                line.add(percentiles.percentile(95.0));
-                line.add(percentiles.percentile(99.0));
+                line.add(dealInfiniteAndNaN(percentiles.percentile(1.0)));
+                line.add(dealInfiniteAndNaN(percentiles.percentile(5.0)));
+                line.add(dealInfiniteAndNaN(percentiles.percentile(25.0)));
+                line.add(dealInfiniteAndNaN(percentiles.percentile(50.0)));
+                line.add(dealInfiniteAndNaN(percentiles.percentile(75)));
+                line.add(dealInfiniteAndNaN(percentiles.percentile(95.0)));
+                line.add(dealInfiniteAndNaN(percentiles.percentile(99.0)));
             } else {
                 throw new ObjectResultsExtractException("unknown NumericMetricsAggregation.MultiValue:" + aggregation.getClass());
             }
@@ -196,6 +196,10 @@ public class ObjectResultsExtractor {
         } else {
             throw new ObjectResultsExtractException("unknown NumericMetricsAggregation" + aggregation.getClass());
         }
+    }
+
+    private double dealInfiniteAndNaN(Double value) {
+        return (value == null || Double.isInfinite(value) || Double.isNaN(value)) ? 0D : value;
     }
 
     private void mergeHeadersWithPrefix(List<String> header, String prefix, String[] newHeaders) {
