@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.elasticsearch.common.collect.Tuple;
 import org.elasticsearch.script.Script;
 import org.elasticsearch.script.ScriptService;
 import org.elasticsearch.search.aggregations.AbstractAggregationBuilder;
@@ -119,9 +120,44 @@ public class AggMaker {
             case "COUNT":
                 groupMap.put(field.getAlias(), new KVValue("COUNT", parent));
                 return makeCountAgg(field);
+            case "SUM_SCRIPT":
+                builder = AggregationBuilders.sum(field.getAlias());
+                return builder.script(getStateScript(field.getParams()));
             default:
                 throw new SqlParseException("the agg function not to define !");
         }
+    }
+
+    public static Script getStateScript(List<KVValue> paramers) {
+        Map<String, Object> scriptParams = new HashMap<>();
+        scriptParams.put("current", System.currentTimeMillis());
+        scriptParams.put("agent_state", paramers.get(0).value);
+        scriptParams.put("begin", paramers.get(1).value);
+        scriptParams.put("end", paramers.get(2).value);
+
+
+        String stringScript ="(doc['state'].value.contains(agent_state)"+
+                " ? " +
+                "((doc['stateTime'].value == 0? current :(doc['createTime'].value + doc['stateTime'].value)) <  end " +
+                        " ? " +
+                        "(" +
+                        "   doc['createTime'].value < begin  ? " +
+                        "       (doc['stateTime'].value == 0? current :(doc['createTime'].value + doc['stateTime'].value)) -  begin  : " +
+                        "       (doc['stateTime'].value == 0?( current  - doc['createTime'].value):doc['stateTime'].value)" +
+                        ") " +
+                        ": " +
+                        "( " +
+                        "doc['createTime'].value <  begin " +
+                        " ? " +
+                        "(" +
+                        "   end  -  begin " +
+                        ") " +
+                        ": " +
+                        "   end  - doc['createTime'].value " +
+                        "))" +
+                ": 0 )";
+
+        return new Script(stringScript, Script.DEFAULT_TYPE, null, scriptParams);
     }
 
     private void addSpecificPercentiles(PercentilesBuilder percentilesBuilder, List<KVValue> params) {

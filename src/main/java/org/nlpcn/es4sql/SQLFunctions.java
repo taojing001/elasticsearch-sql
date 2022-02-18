@@ -12,6 +12,11 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+import static java.util.Calendar.*;
+import static jdk.nashorn.internal.parser.DateParser.DAY;
+import static v10.com.alibaba.druid.sql.dialect.mysql.ast.expr.MySqlIntervalUnit.MICROSECOND;
+import static v10.com.alibaba.druid.sql.dialect.mysql.ast.expr.MySqlIntervalUnit.WEEK;
+
 /**
  * Created by allwefantasy on 8/19/16.
  */
@@ -23,7 +28,8 @@ public class SQLFunctions {
             "random", "abs", //nummber operator
             "split", "concat_ws", "substring", "trim",//string operator
             "add", "multiply", "divide", "subtract", "modulus",//binary operator
-            "field", "date_format"
+            "field", "date_format","now","date","date_add", "from_unixtime",
+            "max_bw", "min_bw"//added by xzb 取两个数的最大/小值
     );
 
 
@@ -55,12 +61,31 @@ public class SQLFunctions {
             case "floor":
                 functionStr = floor(Util.expr2Object((SQLExpr) paramers.get(0).value).toString(), name);
                 break;
+            case "max_bw":
+            case "min_bw":
+                //zhongshu-comment es的round()默认是保留到个位，这里给round()函数加上精确到小数点后第几位的功能
+                //modify by xzb 增加两个函数 min_bw 和 max_bw
+                if (paramers.size() >= 2) {//coalesce函数的参数可以是2个以上
+                    if (methodName.equals("max_bw")) {
+                        functionStr = mathBetweenTemplate("Math.max", methodName, paramers, name);
+                        break;
+                    }  else if (methodName.equals("min_bw")) {
+                        functionStr = mathBetweenTemplate("Math.min", methodName, paramers, name);
+                        break;
+                    }
+                }
 
             case "date_format":
                 functionStr = date_format(
                         Util.expr2Object((SQLExpr) paramers.get(0).value).toString(),
                         Util.expr2Object((SQLExpr) paramers.get(1).value).toString(),
                         name);
+                break;
+            case "now":
+                functionStr = now();
+                break;
+            case "date":
+                functionStr = date(Util.expr2Object((SQLExpr) paramers.get(0).value).toString(), name);
                 break;
 
             case "round":
@@ -161,6 +186,19 @@ public class SQLFunctions {
 
     }
 
+    private static Tuple<String, String> now() {
+        String name = "now_" + random();
+        return new Tuple<>(name, "def " + name + " = " + "Instant.ofEpochMilli(System.currentTimeMillis()).atZone(ZoneId.systemDefault())");
+    }
+
+    private static Tuple<String, String> date(String strColumn, String valueName) {
+        String name = "date_" + random();
+        if (valueName == null) {
+            return new Tuple<>(name, "def " + name + " = doc['" + strColumn + "'].value.truncatedTo(ChronoUnit.DAYS)");
+        } else {
+            return new Tuple<>(name, strColumn + "; def " + name + " = " + valueName + ".truncatedTo(ChronoUnit.DAYS)");
+        }
+    }
 
     public static Tuple<String, String> add(SQLExpr a, SQLExpr b) {
         return binaryOpertator("add", "+", a, b);
@@ -290,6 +328,29 @@ public class SQLFunctions {
 
     }
 
+    //求两个值中最大值，如 def abs_775880898 = Math.max(doc['age1'].value, doc['age2'].value);return abs_775880898;
+    private static Tuple<String, String> mathBetweenTemplate(String methodName, String fieldName, List<KVValue> paramer, String valueName) {
+        //获取 max_bw/min_bw 函数的两个字段
+        String name = fieldName + "_" + random();
+        StringBuffer sb = new StringBuffer();
+        sb.append("def " + name + " = " + methodName + "(");
+        int i = 0;
+        for (KVValue kv : paramer) {
+            String field = kv.value.toString();
+            if (i > 0) {
+                sb.append(", ");
+            }
+            if (kv.value instanceof SQLIntegerExpr) {
+                sb.append(field);
+            } else {
+                sb.append("doc['" + field + "'].value");
+            }
+
+            i++;
+        }
+        sb.append(")");
+        return new Tuple<>(name, sb.toString());
+    }
 
     //substring(Column str, int pos, int len)
     public static Tuple<String, String> substring(String strColumn, int pos, int len, String valueName) {

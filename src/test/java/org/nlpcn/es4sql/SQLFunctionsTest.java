@@ -129,8 +129,27 @@ public class SQLFunctionsTest {
                 "             else 10000 \n" +
                 "       end) as tf,date_format(5minute,'yyyyMMddHHmm') as nt  from traffic_statistics_v4_m200106 where business_line='2'   group by nt order by tf asc limit 10";
 
+
+        String query1 = "select\n" +
+                "SUM_SCRIPT('online',1641796427000, 1645264800000) as onlineTime,\n" +
+                "SUM_SCRIPT('busy',1641796427000, 1645264800000) as busyTime,\n" +
+                "SUM_SCRIPT('leave',1641796427000, 1645264800000) as leaveTime,\n" +
+                "SUM_SCRIPT('hidden',1641796427000, 1645264800000) as hiddenTime\n" +
+                "from\n" +
+                "agentserve\n" +
+                "where\n" +
+                "tenantId = 28399\n" +
+                "and state in ('online', 'busy', 'leave', 'hidden')\n" +
+                "and date_format(createTime + 28800000, 'yyyy-MM-dd HH:mm:ss') < '2022-02-19 18:00:00'\n" +
+                "and (\n" +
+                "date_format(stopTime + 28800000, 'yyyy-MM-dd HH:mm:ss') > '2022-01-10 14:33:47'\n" +
+                "or lastState = 'true'\n" +
+                ") group by agentId";
         SearchDao searchDao = MainTestSuite.getSearchDao() != null ? MainTestSuite.getSearchDao() : getSearchDao();
-        System.out.println(searchDao.explain(query).explain().explain());
+        System.out.println(searchDao.explain(query1).explain().explain());
+
+
+        System.out.println("========\"online\".compareTo(\"online\")========="+"online".contains("online"));
     }
 
     @Test
