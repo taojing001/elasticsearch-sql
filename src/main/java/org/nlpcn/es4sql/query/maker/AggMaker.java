@@ -191,7 +191,12 @@ public class AggMaker {
             if (kvValue.value instanceof MethodField) {
                 return builder.script(new Script(((MethodField) kvValue.value).getParams().get(1).toString()));
             } else {
-                return builder.script(new Script(kvValue.value.toString()));
+                //解决聚合函数里case when条件为boolean类型bug
+                String scriptCode = kvValue.value.toString();
+                if (scriptCode.contains("=='true'")) {
+                    scriptCode = scriptCode.replace("=='true'", "");
+                }
+                return builder.script(new Script(scriptCode));
             }
 
         } else if (kvValue.key != null && kvValue.value.toString().trim().startsWith("def")) {
