@@ -267,7 +267,7 @@ public class FieldMaker {
             if (alias == null && first) {
                 alias = "field_" + SQLFunctions.random();//paramers.get(0).value.toString();
             }
-            Tuple<String, String> newFunctions = SQLFunctions.function(finalMethodName, paramers,
+            Tuple<String, String> newFunctions = SQLFunctions.function(finalMethodName.toLowerCase(), paramers,
                     paramers.isEmpty() ? null : paramers.get(0).key);
             paramers.clear();
             if (!first) {
