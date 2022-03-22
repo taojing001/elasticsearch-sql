@@ -8,14 +8,9 @@ import com.google.common.collect.Sets;
 import org.elasticsearch.common.collect.Tuple;
 import org.nlpcn.es4sql.domain.KVValue;
 
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-
-import static java.util.Calendar.*;
-import static jdk.nashorn.internal.parser.DateParser.DAY;
-import static v10.com.alibaba.druid.sql.dialect.mysql.ast.expr.MySqlIntervalUnit.MICROSECOND;
-import static v10.com.alibaba.druid.sql.dialect.mysql.ast.expr.MySqlIntervalUnit.WEEK;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by allwefantasy on 8/19/16.
@@ -28,12 +23,12 @@ public class SQLFunctions {
             "random", "abs", //nummber operator
             "split", "concat_ws", "substring", "trim",//string operator
             "add", "multiply", "divide", "subtract", "modulus",//binary operator
-            "field", "date_format","now","date","date_add", "from_unixtime",
+            "field", "date_format","now","date","date_add", "from_unixtime", "unix_timestamp",
             "max_bw", "min_bw"//added by xzb 取两个数的最大/小值
     );
 
 
-    public static Tuple<String, String> function(String methodName, List<KVValue> paramers, String name) {
+    public static Tuple<String, String> function(String methodName, List<KVValue> paramers, String name){
         Tuple<String, String> functionStr = null;
         switch (methodName) {
             case "split":
@@ -133,6 +128,9 @@ public class SQLFunctions {
 
             case "field":
                 functionStr = field(Util.expr2Object((SQLExpr) paramers.get(0).value).toString());
+                break;
+            case "unix_timestamp":
+                functionStr = unixTimestamp(paramers, name);
                 break;
 
             default:
@@ -350,6 +348,24 @@ public class SQLFunctions {
         }
         sb.append(")");
         return new Tuple<>(name, sb.toString());
+    }
+
+    public static Tuple<String, String> unixTimestamp(List<KVValue> param, String valueName){
+        String name = "unix_timestamp" + "_" + random();
+        if (!param.isEmpty() && param.get(0).value instanceof SQLCharExpr) {
+            try {
+                KVValue kv = param.get(0);
+                String pattern = 1 < param.size() ? param.get(1).value.toString() : "yyyy-MM-dd HH:mm:ss";
+                Date dateValue = new SimpleDateFormat(pattern).parse(kv.value.toString());
+                return new Tuple<>(name, "def " + name + " = " + dateValue.getTime());
+            } catch (ParseException e) {
+                return new Tuple<>(name, "def " + name + " = " + new Date().getTime());
+            }
+
+        } else {
+            System.out.println("只支持转化传入日期或生成当前时间的时间戳");
+            return new Tuple<>(name, "def " + name + " = " + new Date().getTime());
+        }
     }
 
     //substring(Column str, int pos, int len)

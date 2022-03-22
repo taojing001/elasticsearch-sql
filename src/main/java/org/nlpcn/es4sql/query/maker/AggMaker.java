@@ -1,11 +1,9 @@
 package org.nlpcn.es4sql.query.maker;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import org.elasticsearch.common.collect.Tuple;
 import org.elasticsearch.script.Script;
@@ -38,6 +36,7 @@ import org.nlpcn.es4sql.domain.Where;
 import org.nlpcn.es4sql.exception.SqlParseException;
 import org.nlpcn.es4sql.parse.ChildrenType;
 import org.nlpcn.es4sql.parse.NestedType;
+import v10.com.alibaba.druid.sql.ast.expr.SQLCharExpr;
 
 public class AggMaker {
 
@@ -128,21 +127,31 @@ public class AggMaker {
         }
     }
 
-    public static Script getStateScript(List<KVValue> paramers) {
+    public static Script getStateScript(List<KVValue> param) {
         Map<String, Object> scriptParams = new HashMap<>();
+        String pattern = 3 < param.size() ? param.get(1).value.toString() : "yyyy-MM-dd HH:mm:ss";
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         scriptParams.put("current", System.currentTimeMillis());
-        scriptParams.put("agent_state", paramers.get(0).value);
-        scriptParams.put("begin", paramers.get(1).value);
-        scriptParams.put("end", paramers.get(2).value);
-
+        scriptParams.put("agent_state", param.get(0).value);
+        if (param.get(1).value instanceof SQLCharExpr) {
+            try {
+                scriptParams.put("begin", sdf.parse(param.get(1).value.toString()).getTime());
+                scriptParams.put("end", sdf.parse(param.get(2).value.toString()).getTime());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        } else {
+            scriptParams.put("begin", param.get(1).value);
+            scriptParams.put("end", param.get(2).value);
+        }
 
         String stringScript ="(doc['state'].value.contains(agent_state)"+
                 " ? " +
-                "((doc['stateTime'].value == 0? current :(doc['createTime'].value + doc['stateTime'].value)) <  end " +
+                "((doc['stateTime'].value == 0? current :doc['stopTime'].value) <  end " +
                         " ? " +
                         "(" +
                         "   doc['createTime'].value < begin  ? " +
-                        "       (doc['stateTime'].value == 0? current :(doc['createTime'].value + doc['stateTime'].value)) -  begin  : " +
+                        "       (doc['stateTime'].value == 0? current :doc['stopTime'].value) -  begin  : " +
                         "       (doc['stateTime'].value == 0?( current  - doc['createTime'].value):doc['stateTime'].value)" +
                         ") " +
                         ": " +
