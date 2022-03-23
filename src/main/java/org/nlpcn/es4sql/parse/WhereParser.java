@@ -451,13 +451,13 @@ public class WhereParser {
         }
 
         if (soExpr.getLeft() instanceof SQLMethodInvokeExpr) {
-            if (!SQLFunctions.buildInFunctions.contains(((SQLMethodInvokeExpr) soExpr.getLeft()).getMethodName())) {
+            if (!SQLFunctions.buildInFunctions.contains(((SQLMethodInvokeExpr) soExpr.getLeft()).getMethodName().toLowerCase())) {
                 return null;
             }
         }
 
         if (soExpr.getRight() instanceof SQLMethodInvokeExpr) {
-            if (!SQLFunctions.buildInFunctions.contains(((SQLMethodInvokeExpr) soExpr.getRight()).getMethodName())) {
+            if (!SQLFunctions.buildInFunctions.contains(((SQLMethodInvokeExpr) soExpr.getRight()).getMethodName().toLowerCase())) {
                 return null;
             }
         }

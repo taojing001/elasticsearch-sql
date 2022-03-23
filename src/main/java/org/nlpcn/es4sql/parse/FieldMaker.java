@@ -248,7 +248,7 @@ public class FieldMaker {
                     }
 
                     paramers.add(new KVValue("children", childrenType));
-                } else if (SQLFunctions.buildInFunctions.contains(methodName)) {
+                } else if (SQLFunctions.buildInFunctions.contains(methodName.toLowerCase())) {
                     //throw new SqlParseException("only support script/nested as inner functions");
                     MethodField abc = makeMethodField(methodName, mExpr.getParameters(), null, null, tableAlias, false);
                     paramers.add(new KVValue(abc.getParams().get(0).toString(), new SQLCharExpr(abc.getParams().get(1).toString())));
@@ -263,7 +263,7 @@ public class FieldMaker {
         }
 
         //just check we can find the function
-        if (SQLFunctions.buildInFunctions.contains(finalMethodName)) {
+        if (SQLFunctions.buildInFunctions.contains(finalMethodName.toLowerCase())) {
             if (alias == null && first) {
                 alias = "field_" + SQLFunctions.random();//paramers.get(0).value.toString();
             }

@@ -10,6 +10,8 @@ import org.nlpcn.es4sql.exception.SqlParseException;
 import org.nlpcn.es4sql.jdbc.ObjectResult;
 import org.nlpcn.es4sql.jdbc.ObjectResultsExtractor;
 import org.nlpcn.es4sql.query.QueryAction;
+import v10.com.alibaba.druid.support.logging.Log;
+import v10.com.alibaba.druid.support.logging.LogFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +22,7 @@ import java.util.List;
  * Created by allwefantasy on 8/30/16.
  */
 public class ElasticSearchDruidPooledPreparedStatement extends DruidPooledPreparedStatement {
-
+    private final static Log LOG = LogFactory.getLog(ElasticSearchDruidPooledPreparedStatement.class);
     private final Client client;
 
     public ElasticSearchDruidPooledPreparedStatement(DruidPooledConnection conn, PreparedStatementHolder holder) throws SQLException {
@@ -92,6 +94,7 @@ public class ElasticSearchDruidPooledPreparedStatement extends DruidPooledPrepar
         //String rewriteSQL = searchDao.explain(getSql()).explain().explain();
 
         QueryAction queryAction = searchDao.explain(query);
+        LOG.info("Execute the SQL parsed statement is " + queryAction.explain().explain());
         Object execution = QueryActionElasticExecutor.executeAnyAction(searchDao.getClient(), queryAction);
         return new ObjectResultsExtractor(includeScore, includeType, includeId).extractResults(execution, flat);
     }

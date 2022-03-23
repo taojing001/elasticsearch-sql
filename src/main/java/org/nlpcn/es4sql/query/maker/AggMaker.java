@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import javafx.scene.chart.Chart;
 import org.elasticsearch.common.collect.Tuple;
 import org.elasticsearch.script.Script;
 import org.elasticsearch.script.ScriptService;
@@ -36,7 +37,6 @@ import org.nlpcn.es4sql.domain.Where;
 import org.nlpcn.es4sql.exception.SqlParseException;
 import org.nlpcn.es4sql.parse.ChildrenType;
 import org.nlpcn.es4sql.parse.NestedType;
-import v10.com.alibaba.druid.sql.ast.expr.SQLCharExpr;
 
 public class AggMaker {
 
@@ -129,11 +129,11 @@ public class AggMaker {
 
     public static Script getStateScript(List<KVValue> param) {
         Map<String, Object> scriptParams = new HashMap<>();
-        String pattern = 3 < param.size() ? param.get(1).value.toString() : "yyyy-MM-dd HH:mm:ss";
+        String pattern = 3 < param.size() ? param.get(3).value.toString() : "yyyy-MM-dd HH:mm:ss";
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         scriptParams.put("current", System.currentTimeMillis());
         scriptParams.put("agent_state", param.get(0).value);
-        if (param.get(1).value instanceof SQLCharExpr) {
+        if (param.get(1).value instanceof String) {
             try {
                 scriptParams.put("begin", sdf.parse(param.get(1).value.toString()).getTime());
                 scriptParams.put("end", sdf.parse(param.get(2).value.toString()).getTime());
