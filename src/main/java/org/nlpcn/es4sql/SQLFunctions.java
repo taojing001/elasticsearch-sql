@@ -356,7 +356,14 @@ public class SQLFunctions {
             try {
                 KVValue kv = param.get(0);
                 String pattern = 1 < param.size() ? param.get(1).value.toString() : "yyyy-MM-dd HH:mm:ss";
-                Date dateValue = new SimpleDateFormat(pattern).parse(kv.value.toString());
+                if (pattern.contains("'")) {
+                    pattern = pattern.replaceAll("'", "");
+                }
+                String value = kv.value.toString();
+                if (value.contains("'")) {
+                    value = value.replaceAll("'", "");
+                }
+                Date dateValue = new SimpleDateFormat(pattern).parse(value);
                 return new Tuple<>(name, "def " + name + " = " + dateValue.getTime());
             } catch (ParseException e) {
                 return new Tuple<>(name, "def " + name + " = " + new Date().getTime());
