@@ -128,7 +128,7 @@ public class ESActionFactory {
         return query.getFrom() instanceof  SQLJoinTableSource && sql.toLowerCase().contains("join");
     }
 
-    private static SQLExpr toSqlExpr(String sql) {
+    public static SQLExpr toSqlExpr(String sql) {
         SQLExprParser parser = new ElasticSqlExprParser(sql);
         SQLExpr expr = parser.expr();
 
